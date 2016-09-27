@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class DbUtil {
 	
 	static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=perpsys";
+	static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=";
 	static final String USER = "sa";
 	static final String PWD = "123456";
 	
@@ -20,11 +20,11 @@ public class DbUtil {
 	 * 获取数据库连接
 	 * @return
 	 */
-	public static Connection getConnection() {
+	public static Connection getConnection(String dbName) {
 			Connection con = null;
 			try {
 				Class.forName(DRIVER);
-				con = DriverManager.getConnection(URL, USER,PWD);
+				con = DriverManager.getConnection(URL+dbName, USER,PWD);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -55,7 +55,7 @@ public class DbUtil {
 	public static void main(String[] args) {
 		DbUtil dbutil = new DbUtil();
 		try {
-			Connection con = dbutil.getConnection();
+			Connection con = dbutil.getConnection("perpsys");
 			System.out.println("数据库连接成功！！");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
